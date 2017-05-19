@@ -6,9 +6,9 @@ public class HeroFollow : MonoBehaviour {
 	public HeroRabit rabit;
 	// Use this for initialization
 	void Start () {
-		
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		//Отримали доступ до компонентів Transform кроля та камери відповідно 
