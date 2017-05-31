@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelController: MonoBehaviour {
 	public static LevelController current;
+
 	Vector3 startingPosition;
 	void Awake ()
 	{
@@ -13,7 +14,9 @@ public class LevelController: MonoBehaviour {
 		this.startingPosition = pos;
 	}
 	public void onRabitDeath (HeroRabit rabit){
+        rabit.resetHealth();
 		rabit.transform.position = this.startingPosition;
+        
 	}
 
 }

@@ -9,10 +9,16 @@ public class HeroRabit : MonoBehaviour {
 	public float MaxJumpTime = 2f;
 	public float JumpSpeed = 2f;
 	public float speed = 1;
+    public float health = 1;
 	Rigidbody2D myBody = null;
-	// Use this for initialization
-	void Start () {
-		myBody = this.GetComponent<Rigidbody2D> ();
+
+    Transform heroParent = null;
+
+    // Use this for initialization
+    void Start () {
+        //Зберегти стандартний батьківський GameObject
+        this.heroParent = this.transform.parent;
+        myBody = this.GetComponent<Rigidbody2D> ();
 		LevelController.current.setStartPosition (transform.position);
 	}
 
@@ -20,6 +26,36 @@ public class HeroRabit : MonoBehaviour {
 	void Update () {
 
 	}
+    public void addHealth()
+    {
+        if(this.health==1) this.health += 1;
+        this.onHealthChange();
+    }
+    public void removeHealth(int number)
+    {
+        this.health -= number;
+        if(this.health< 0)
+        {
+            this.health = 0;
+        }
+        this.onHealthChange();
+    }
+    public void resetHealth()
+    {
+        this.health = 1;
+        this.onHealthChange();
+    }
+    void onHealthChange()
+    {
+        if(this.health == 1){
+            this.transform.localScale = Vector3.one;
+        } else if (this.health == 2){
+            this.transform.localScale = Vector3.one * 1.5f;
+        } else if (this.health == 0)
+        {
+            LevelController.current.onRabitDeath(this);
+        }
+    }
 	void FixedUpdate () {
 		float value = Input.GetAxis ("Horizontal");
 		if (Mathf.Abs (value) > 0) {
@@ -34,7 +70,8 @@ public class HeroRabit : MonoBehaviour {
 			sr.flipX = false;
 		}
 		Animator animator = GetComponent<Animator> ();
-		if(this.isGrounded) {
+
+        if (this.isGrounded) {
 			animator.SetBool ("jump", false);
 		} else {
 			animator.SetBool ("jump", true);
@@ -73,5 +110,34 @@ public class HeroRabit : MonoBehaviour {
 				this.JumpTime = 0;
 			}
 		}
-	}
+        if (hit)
+        {
+            //Перевіряємо чи ми опинились на платформі
+            if (hit.transform != null
+            && hit.transform.GetComponent<MovingPlatform>() != null)
+            {
+                //Приліпаємо до платформи
+                SetNewParent(this.transform, hit.transform);
+            }
+        }
+        else
+        {
+            //Ми в повітрі відліпаємо під платформи
+            SetNewParent(this.transform, this.heroParent);
+        }
+    }
+    static void SetNewParent(Transform obj, Transform new_parent)
+    {
+        if (obj.transform.parent != new_parent)
+        {
+            //Засікаємо позицію у Глобальних координатах
+            Vector3 pos = obj.transform.position;
+            //Встановлюємо нового батька
+            obj.transform.parent = new_parent;
+            //Після зміни батька координати кролика зміняться
+            //Оскільки вони тепер відносно іншого об’єкта
+            //повертаємо кролика в ті самі глобальні координати
+            obj.transform.position = pos;
+        }
+    }
 }
