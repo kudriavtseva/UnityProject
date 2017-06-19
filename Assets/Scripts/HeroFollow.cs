@@ -23,7 +23,7 @@ public class HeroFollow : MonoBehaviour {
 
 		//Задаємо рух камери відповіднім до руху кроля
 		camera_position.x = rabit_position.x;
-		camera_position.y = rabit_position.y;
+		camera_position.y = rabit_position.y+1;
 
 		//Встановлюємо координати камери
 		camera_transform.position = camera_position;

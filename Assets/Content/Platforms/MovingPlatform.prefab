@@ -72,7 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 2
   Direction: {x: 1, y: 0, z: 0}
-  PointB: 5
+  PointB: 3
 --- !u!212 &212473062952335340
 SpriteRenderer:
   m_ObjectHideFlags: 1

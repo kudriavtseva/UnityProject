@@ -51,7 +51,7 @@ public class HeroRabit : MonoBehaviour {
         if(this.health == 1){
             this.transform.localScale = Vector3.one;
         } else if (this.health == 2){
-            this.transform.localScale = Vector3.one * 1.5f;
+            this.transform.localScale = Vector3.one * 1.2f;
         } else if (this.health == 0)
         {
             LevelController.current.onRabitDeath(this);
