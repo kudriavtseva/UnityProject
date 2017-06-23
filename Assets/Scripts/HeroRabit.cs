@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class HeroRabit : MonoBehaviour {
 	bool isGrounded = false;
 	bool JumpActive = false;
@@ -11,6 +12,7 @@ public class HeroRabit : MonoBehaviour {
 	public float JumpSpeed = 2f;
 	public float speed = 1;
     public float health = 1;
+    public float lifes=4;
 	Rigidbody2D myBody = null;
 
     Transform heroParent = null;
@@ -34,12 +36,14 @@ public class HeroRabit : MonoBehaviour {
     }
     public void removeHealth(int number)
     {
-        this.health -= number;
-        if(this.health< 0)
-        {
-            this.health = 0;
-        }
-        this.onHealthChange();
+
+            this.health -= number;
+            if (this.health < 0)
+            {
+                this.health = 0;
+            }
+            this.onHealthChange();
+
     }
     public void resetHealth()
     {
@@ -48,14 +52,21 @@ public class HeroRabit : MonoBehaviour {
     }
     void onHealthChange()
     {
-        if(this.health == 1){
-            this.transform.localScale = Vector3.one;
-        } else if (this.health == 2){
-            this.transform.localScale = Vector3.one * 1.2f;
-        } else if (this.health == 0)
-        {
-            LevelController.current.onRabitDeath(this);
-        }
+
+            if (this.health == 1)
+            {
+                this.transform.localScale = Vector3.one;
+            }
+            else if (this.health == 2)
+            {
+                this.transform.localScale = Vector3.one * 1.2f;
+            }
+            else if (this.health == 0)
+            {
+                LevelController.current.onRabitDeath(this);
+                
+            }
+
     }
 	void FixedUpdate () {
 		float value = Input.GetAxis ("Horizontal");
