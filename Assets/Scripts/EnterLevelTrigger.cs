@@ -5,12 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class EnterLevelTrigger : MonoBehaviour
 {
-
     public string LevelName;
-
-    void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        if (col.GetComponent<HeroRabit>() != null)
+        if (collider.GetComponent<HeroRabit>() != null)
         {
             SceneManager.LoadScene(LevelName);
         }

@@ -7,7 +7,6 @@ public class LevelController : MonoBehaviour
 {
     public Action<int> FruitCollectedAmountChanged;
     public static LevelController current;
-    private int _fruitAmount;
     HeroRabit rabit;
 
     Vector3 startingPosition;
@@ -36,14 +35,7 @@ public class LevelController : MonoBehaviour
         }
 
     }
-    public void CollectFruit()
-    {
-        _fruitAmount++;
-        if (FruitCollectedAmountChanged != null)
-        {
-            FruitCollectedAmountChanged(_fruitAmount);
-        }
-    }
+
     public void GoToMenu()
     {
         SceneManager.LoadScene("ChooseLevel");
